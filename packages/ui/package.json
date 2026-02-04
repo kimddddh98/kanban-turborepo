@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "tsup src/index.tsx --format esm --dts",
-    "dev": "tsup src/index.tsx --format esm --dts --watch"
+    "build": "tsup src/index.ts --format esm --dts",
+    "dev": "tsup src/index.ts --format esm --dts --watch"
   },
   "type": "module",
   "main": "dist/index.js",

@@ -6,7 +6,7 @@ function App() {
     <>
       <div>테스트12</div>
       <h1>{sum(1, 2)}</h1>
-      <Button label="55"></Button>
+      <Button text="55"></Button>
     </>
   );
 }
