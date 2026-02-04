@@ -30,3 +30,21 @@ out/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# --- Storybook ---
+storybook-static
+**/storybook-static
+
+# --- Storybook cache --- 
+.node_modules/.cache/storybook
+**/.cache/storybook
+
+# --- Storybook logs --- 
+debug-storybook.log
+**/debug-storybook.log
+
+
+# --- pnpm --- 
+.pnpm-store
+**/.pnpm-store
+
