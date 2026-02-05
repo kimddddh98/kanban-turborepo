@@ -6,7 +6,7 @@ function App() {
     <>
       <div>테스트12</div>
       <h1>{sum(1, 2)}</h1>
-      <Button text="55"></Button>
+      <Button onClick={() => {}} text="55"></Button>
       <Task
         onArchiveTask={() => {}}
         onPinTask={() => {}}

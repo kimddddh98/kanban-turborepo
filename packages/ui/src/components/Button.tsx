@@ -1,8 +1,9 @@
 export type ButtonProps = {
   text: string;
+  onClick: () => void;
 };
-const Button = ({ text }: ButtonProps) => {
-  return <button>{text}</button>;
+const Button = ({ text, onClick }: ButtonProps) => {
+  return <button onClick={() => onClick()}>{text}</button>;
 };
 
 export { Button };
