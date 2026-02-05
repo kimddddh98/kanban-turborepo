@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui';
+import { Button, Task } from '@repo/ui';
 import './App.css';
 import { sum } from '@repo/utils';
 function App() {
@@ -7,6 +7,15 @@ function App() {
       <div>테스트12</div>
       <h1>{sum(1, 2)}</h1>
       <Button text="55"></Button>
+      <Task
+        onArchiveTask={() => {}}
+        onPinTask={() => {}}
+        task={{
+          id: 1,
+          title: '테스트',
+          state: true,
+        }}
+      />
     </>
   );
 }
