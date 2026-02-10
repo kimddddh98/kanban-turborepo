@@ -81,7 +81,7 @@ env:
   #   ECS_CLUSTER: kanban-turborepo_web # ECS 클러스터 이름
   AWS_REGION: eu-north-1 # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: kanban-turborepo/web # set this to your Amazon ECR repository name
-  ECS_SERVICE: anban-task-web-service-ex1t8g8o # set this to your Amazon ECS service name
+  ECS_SERVICE: kanban-task-web-service-ex1t8g8o # set this to your Amazon ECS service name
   ECS_CLUSTER: kanban-turborepo_web # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION:
     .aws/kanban-task-web-revision4.json # set this to the path to your Amazon ECS task definition
