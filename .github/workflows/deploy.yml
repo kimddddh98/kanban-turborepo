@@ -50,12 +50,20 @@ jobs:
 
           echo "image=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" >> $GITHUB_OUTPUT
 
+      # 1. 기존 작업 정의 파일을 가져와서 새 이미지 주소로 바꾼 '임시 파일'을 만듭니다.
+      - name: Render Amazon ECS task definition
+        id: render-web-container
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition-family: kanban-task-web # ECS에 등록된 작업 정의 이름
+          container-name: kanban-task-image # ECS 작업 정의 내의 '컨테이너 이름' (중요!)
+          image: ${{ steps.build-image.outputs.image }}
+
+      # 2. 위에서 만든 임시 파일을 사용하여 배포합니다.
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          # 5. 작업 정의 패밀리 이름: 개정 번호(v1) 빼고 이름만!
-          task-definition-family: kanban-task-web # 유저님의 Task Definition 이름
+          task-definition: ${{ steps.render-web-container.outputs.task-definition }} # 여기가 핵심!
           service: ${{ env.ECS_SERVICE }}
           cluster: ${{ env.ECS_CLUSTER }}
-          image: ${{ steps.build-image.outputs.image }}
           wait-for-service-stability: true
