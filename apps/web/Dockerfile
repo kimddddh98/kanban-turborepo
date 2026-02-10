@@ -5,7 +5,7 @@ RUN npm install -g turbo
 WORKDIR /app
 COPY . .
 # 실제 패키지명 @repo/web 사용
-RUN turbo prune @repo/web --docker
+RUN npx turbo prune @repo/web --docker
 
 # 2단계: 의존성 설치 및 빌드 단계
 FROM node:20-alpine AS installer
