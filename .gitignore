@@ -6,7 +6,7 @@
 # --- Dependency Management ---
 node_modules/
 .pnpm-debug.log
-pnpm-lock.yaml
+# pnpm-lock.yaml
 
 # --- Turborepo ---
 .turbo/
