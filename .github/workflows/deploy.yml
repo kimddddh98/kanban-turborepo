@@ -1,0 +1,59 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches: ['main'] # 1. 만약 메인 브랜치 이름이 master라면 수정
+
+env:
+  # 2. AWS 설정: 실제 리전과 이름을 넣으세요.
+  AWS_REGION: eu-north-1 # 유저님의 리전 (예: ap-northeast-2)
+  ECR_REPOSITORY: kanban-turborepo/web # ECR 리포지토리 이름
+  ECS_SERVICE: kanban-task-web-service-ex1t8g8o # ECS 서비스 이름
+  ECS_CLUSTER: kanban-turborepo_web # ECS 클러스터 이름
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # 3. 파라미터 스토어 경로 확인: 실제 콘솔에 만든 이름과 일치해야 함
+      - name: Get parameters from SSM
+        run: |
+          API_URL=$(aws ssm get-parameter --name "/kanban-turborepo/api-url" --region ${{ env.AWS_REGION }} --query "Parameter.Value" --output text)
+          echo "NEXT_PUBLIC_API_URL=$API_URL" >> $GITHUB_ENV
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          # 4. Docker 빌드 인자: Dockerfile에 선언한 ARG 이름과 같아야 함
+          docker build --platform linux/amd64 \
+            --build-arg NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }} \
+          -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          # 5. 작업 정의 패밀리 이름: 개정 번호(v1) 빼고 이름만!
+          task-definition-family: kanban-task-web # 유저님의 Task Definition 이름
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          image: ${{ steps.build-image.outputs.image }}
+          wait-for-service-stability: true
