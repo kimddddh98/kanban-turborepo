@@ -3,9 +3,21 @@ FROM node:20-alpine AS builder
 RUN apk add --no-cache libc6-compat
 RUN npm install -g turbo
 WORKDIR /app
+
+COPY package.json pnpm-lock.yaml* pnpm-workspace.yaml* turbo.json ./
+
+# 2. 전체 소스 복사
 COPY . .
-# 실제 패키지명 @repo/web 사용
-RUN npx turbo prune @repo/web --docker
+
+# [중요 디버깅] 
+# - 실제 패키지명이 무엇인지 로그에 출력합니다.
+# - 파일 구조가 어떻게 들어왔는지 출력합니다.
+RUN echo "Checking package.json name..." && \
+    cat apps/web/package.json | grep '"name":' && \
+    ls -F
+
+# 3. npx로 실행하면서 명시적으로 현재 폴더를 지정
+RUN npx turbo prune --scope=@repo/web --docker
 
 # 2단계: 의존성 설치 및 빌드 단계
 FROM node:20-alpine AS installer
