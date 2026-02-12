@@ -7,6 +7,7 @@ export default function Home() {
       <Button text="테스트" onClick={() => alert('테스트')} />
       <p>API 주소: {process.env.NEXT_PUBLIC_API_URL}</p>
       <h1>github actions 배포 테스트</h1>
+      <h1>PR 승인 테스트</h1>
     </div>
   );
 }
