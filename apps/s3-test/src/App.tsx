@@ -22,7 +22,7 @@ function App() {
           onClick={() => alert('github actions!')}
         />
       </div>
-      <p className="read-the-docs">s3 배포 승인 테스트</p>
+      <p className="read-the-docs">s3 배포 승인 테스트 -2</p>
     </>
   );
 }
