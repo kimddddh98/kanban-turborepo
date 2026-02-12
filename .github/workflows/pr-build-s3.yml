@@ -9,7 +9,7 @@ on:
       - 'packages/**'
 
 jobs:
-  build:
+  s3-pr-build:
     runs-on: ubuntu-latest
 
     steps:
