@@ -22,9 +22,7 @@ function App() {
           onClick={() => alert('github actions!')}
         />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">s3 배포 승인 테스트</p>
     </>
   );
 }
