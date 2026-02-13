@@ -4,7 +4,6 @@ import './App.css';
 import { Button } from '@repo/ui';
 
 function App() {
-  const a =
   return (
     <>
       <div>
