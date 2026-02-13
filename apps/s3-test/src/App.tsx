@@ -23,7 +23,7 @@ function App() {
         />
       </div>
       <p className="read-the-docs">s3 배포 승인 테스트 -2</p>
-      <p className="read-the-docs">PR 빌드 워크플로우 테스트 - 2</p>
+      <p className="read-the-docs">PR 빌드 워크플로우 테스트 - 3</p>
     </>
   );
 }
