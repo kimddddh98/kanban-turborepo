@@ -1,0 +1,59 @@
+name: ECS PR Build Check
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'apps/web/**'
+      - 'packages/**'
+
+env:
+  AWS_REGION: eu-north-1 # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: kanban-turborepo/web # set this to your Amazon ECR repository name
+  ECS_SERVICE: kanban-task-web-service-ex1t8g8o # set this to your Amazon ECS service name
+  ECS_CLUSTER: kanban-turborepo_web # set this to your Amazon ECS cluster name
+  ECS_TASK_DEFINITION:
+    .aws/kanban-task-web-revision4.json # set this to the path to your Amazon ECS task definition
+    # file, e.g. .aws/task-definition.json
+  CONTAINER_NAME: kanban-task-image # containerDefinitions의 name과 동일해야 함
+
+permissions:
+  contents: read
+
+jobs:
+  ecs-br-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Get parameters from SSM
+        run: |
+          API_URL=$(aws ssm get-parameter --name "/kanban-turborepo/api-url" --region ${{ env.AWS_REGION }} --query "Parameter.Value" --output text)
+          echo "NEXT_PUBLIC_API_URL=$API_URL" >> $GITHUB_ENV
+
+      - name: Run tests
+        run: pnpm turbo run test --filter=@repo/web
+      - name: Build image
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build --platform linux/amd64 \
+            --build-arg NEXT_PUBLIC_API_URL=${{ env.NEXT_PUBLIC_API_URL }} \
+            -t ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }} \
+            -f apps/web/Dockerfile .
