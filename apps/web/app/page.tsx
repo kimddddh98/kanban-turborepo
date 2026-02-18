@@ -9,6 +9,7 @@ export default function Home() {
       <h1>github actions 배포 테스트</h1>
       <h1>PR 승인 테스트</h1>
       <h2>PR 시 빌드,테스트 액션 추가 테스트3</h2>
+      <h2>ecr 태그 테스트</h2>
     </div>
   );
 }
