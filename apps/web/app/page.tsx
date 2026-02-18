@@ -8,7 +8,7 @@ export default function Home() {
       <p>API 주소: {process.env.NEXT_PUBLIC_API_URL}</p>
       <h1>github actions 배포 테스트</h1>
       <h1>PR 승인 테스트</h1>
-      <h2>PR 시 빌드,테스트 액션 추가 테스트</h2>
+      <h2>PR 시 빌드,테스트 액션 추가 테스트1</h2>
     </div>
   );
 }
