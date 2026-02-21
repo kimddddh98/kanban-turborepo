@@ -19,6 +19,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.28.2",
   "devDependencies": {
+    "@tailwindcss/vite": "^4",
+    "tailwindcss": "^4",
     "@chromatic-com/storybook": "^4.0.0",
     "@storybook/addon-a11y": "^10.2.6",
     "@storybook/addon-docs": "^10.2.6",

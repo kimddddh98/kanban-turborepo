@@ -1,13 +1,13 @@
 export type TaskProps = {
   task: {
-    id: number;
-    title: string;
-    state: boolean;
-  };
+    id: number
+    title: string
+    state: boolean
+  }
 
-  onArchiveTask: () => void;
-  onPinTask: () => void;
-};
+  onArchiveTask: () => void
+  onPinTask: () => void
+}
 
 const Task = ({
   task: { id, title, state },
@@ -26,6 +26,6 @@ const Task = ({
         />
       </label>
     </div>
-  );
-};
-export { Task };
+  )
+}
+export { Task }

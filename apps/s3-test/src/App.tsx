@@ -1,7 +1,7 @@
 // import reactLogo from './assets/react.svg';
 // import viteLogo from '/vite.svg';
-import './App.css';
-import { Button } from '@repo/ui';
+import './App.css'
+import { Button } from '@repo/ui'
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
       <p className="read-the-docs">PR 빌드 워크플로우 테스트 - 3</p>
       <p className="read-the-docs">cloudfront 도메인,인증서 등록 테스트</p>
     </>
-  );
+  )
 }
 
-export default App;
+export default App
