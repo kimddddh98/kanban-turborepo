@@ -1,12 +1,12 @@
-import { Meta, StoryObj } from '@storybook/react-vite';
-import { Task } from './Task';
+import { Meta, StoryObj } from '@storybook/react-vite'
+import { Task } from './Task'
 
 const meta = {
   component: Task,
-} satisfies Meta<typeof Task>;
+} satisfies Meta<typeof Task>
 
-export default meta;
-type Story = StoryObj<typeof meta>;
+export default meta
+type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
@@ -18,7 +18,7 @@ export const Default: Story = {
     onArchiveTask: () => {},
     onPinTask: () => {},
   },
-};
+}
 
 export const Pinned: Story = {
   args: {
@@ -28,7 +28,7 @@ export const Pinned: Story = {
       state: false,
     },
   },
-};
+}
 
 export const Archived: Story = {
   args: {
@@ -38,4 +38,4 @@ export const Archived: Story = {
       title: 'Archived',
     },
   },
-};
+}

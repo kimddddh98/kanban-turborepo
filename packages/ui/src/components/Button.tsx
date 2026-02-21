@@ -1,9 +1,13 @@
 export type ButtonProps = {
-  text: string;
-  onClick: () => void;
-};
+  text: string
+  onClick: () => void
+}
 const Button = ({ text, onClick }: ButtonProps) => {
-  return <button onClick={() => onClick()}>{text}</button>;
-};
+  return (
+    <button className="flex text-red-400" onClick={() => onClick()}>
+      {text}
+    </button>
+  )
+}
 
-export { Button };
+export { Button }
