@@ -1,12 +1,9 @@
-// import reactLogo from './assets/react.svg';
-// import viteLogo from '/vite.svg';
-import './App.css'
 import { Button } from '@repo/ui'
 
 function App() {
   return (
     <>
-      <h1>Vite + React</h1>
+      <h1 className="p-test-md bg-gray-900">Vite + React</h1>
       <div className="card">
         <Button text="react/vite 버튼" onClick={() => alert('테스트')} />
         <Button
