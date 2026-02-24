@@ -14,6 +14,7 @@
       "dependsOn": ["^test"],
       "outputs": []
     },
-    "format": {}
+    "format": {},
+    "storybook": {}
   }
 }
