@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
-import { Input } from '../components/Input'
+import { Input } from './Input'
 
 const meta: Meta<typeof Input> = {
-  title: 'UI/Input',
   component: Input,
   args: {
     label: 'Label',
