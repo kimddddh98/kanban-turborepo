@@ -4,7 +4,7 @@ export type ButtonProps = {
 }
 const Button = ({ text, onClick }: ButtonProps) => {
   return (
-    <button className="flex text-red-400" onClick={() => onClick()}>
+    <button className="flex text-black" onClick={() => onClick()}>
       {text}
     </button>
   )

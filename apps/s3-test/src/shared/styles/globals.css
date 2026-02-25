@@ -1,6 +1,6 @@
 @import '@ui/styles/tailwind.css';
-/* @source Tailwind가 이 경로의 클래스를 스캔해 UI 패키지 스타일을 생성합니다 */
-@source '@ui';
+/* Tailwind가 이 경로의 클래스를 스캔해 UI 패키지 스타일을 생성합니다 */
+@source '../../../../../packages/ui/src';
 
 @theme {
   --color-gray-100: var(--colors-red-100);
