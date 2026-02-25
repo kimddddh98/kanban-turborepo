@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+/* Tailwind가 이 경로의 클래스를 스캔해 UI 패키지 스타일을 생성합니다 */
 @source "../../../packages/ui/src";
 
 :root {
