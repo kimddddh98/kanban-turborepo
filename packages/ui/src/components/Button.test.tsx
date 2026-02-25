@@ -1,23 +1,28 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import * as stories from './Button.stories'
-import { composeStories } from '@storybook/react-vite'
+import { vi } from 'vitest'
+import { Button } from './Button'
 
-const { Default, Secondary, Primary } = composeStories(stories)
-
-test('Default 버튼 보인다.', () => {
-  render(<Default />)
-  expect(screen.getByText('기본 텍스트')).toBeInTheDocument()
-})
-test('Secondary 버튼 보인다.', () => {
-  render(<Secondary />)
-  expect(screen.getByText('두번째 버튼')).toBeInTheDocument()
+test('클릭 시 onClick이 1회 호출된다.', async () => {
+  const onClick = vi.fn()
+  render(<Button text="테스트" onClick={onClick} />)
+  await userEvent.click(screen.getByRole('button', { name: '테스트' }))
+  expect(onClick).toHaveBeenCalledTimes(1)
 })
 
-test('Primary 버튼 보인다.', async () => {
-  render(<Primary />)
-  const button = screen.getByRole('button')
-  expect(button).toHaveTextContent('변경 전')
-  await userEvent.click(button)
-  expect(button).toHaveTextContent('변경 후')
+test('text prop이 버튼 텍스트로 렌더된다.', () => {
+  render(<Button text="임의 텍스트" onClick={() => {}} />)
+  expect(screen.getByRole('button')).toHaveTextContent('임의 텍스트')
+})
+
+test('키보드 Enter로 onClick이 호출된다.', async () => {
+  const user = userEvent.setup()
+  const onClick = vi.fn()
+  render(<Button text="키보드 테스트" onClick={onClick} />)
+
+  await user.tab()
+  expect(screen.getByRole('button', { name: '키보드 테스트' })).toHaveFocus()
+  await user.keyboard('{Enter}')
+
+  expect(onClick).toHaveBeenCalledTimes(1)
 })
