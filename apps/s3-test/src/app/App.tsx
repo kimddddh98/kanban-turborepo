@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui'
+import { Button, Input } from '@repo/ui'
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
       <p className="read-the-docs">s3 배포 승인 테스트 -2</p>
       <p className="read-the-docs">PR 빌드 워크플로우 테스트 - 3</p>
       <p className="read-the-docs">cloudfront 도메인,인증서 등록 테스트</p>
+      <Input label="테스트 라벨" inputSize="lg" />
     </>
   )
 }
