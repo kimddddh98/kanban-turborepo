@@ -6,7 +6,8 @@ on:
       - main
     paths:
       - 'apps/web/**'
-      - 'packages/**'
+      # packages 변경만으로는 PR 빌드를 돌리지 않음
+      # - 'packages/**'
 
 env:
   AWS_REGION: eu-north-1 # set this to your preferred AWS region, e.g. us-west-1
