@@ -21,9 +21,6 @@ const Color = ({ variable }: ColorProps) => {
       <span className="break-all text-center text-sm text-gray-700">
         {variable.split('-').slice(1).join('-')}
       </span>
-      <span className="break-all text-center text-sm text-gray-700">
-        {variable.split('-').slice(1).join('-')}
-      </span>
     </div>
   )
 }
