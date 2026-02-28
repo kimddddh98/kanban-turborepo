@@ -1,4 +1,4 @@
-@import '../../../design-tokens/build/css/variables.css';
+@import '@repo/design-tokens/variables.css';
 @import 'tailwindcss';
 
 @theme {

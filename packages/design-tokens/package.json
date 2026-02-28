@@ -7,9 +7,12 @@
   "license": "ISC",
   "version": "1.0.0",
   "type": "module",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./variables.css": "./dist/variables.css"
+  },
   "scripts": {
     "build": "node build-output.js",
     "dev": "nodemon --watch design-token.json build-output.js"
