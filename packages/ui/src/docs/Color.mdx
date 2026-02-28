@@ -1,0 +1,73 @@
+import { Meta, Canvas, Controls, Source } from '@storybook/addon-docs/blocks'
+import * as Stories from '../components/Color.stories'
+
+<Meta of={Stories} />
+
+# Color
+
+## 목적
+
+Color는 전달받은 디자인 토큰 변수명을 기준으로 **하나의 컬러 스와치**를 렌더링하는 문서용 컴포넌트입니다.  
+토큰 이름이 올바른지, 실제 CSS 변수 값이 어떻게 보이는지 Storybook에서 빠르게 확인할 때 사용합니다.
+
+---
+
+## 사용 가이드
+
+### Do
+
+- `variable`에는 CSS 변수 suffix를 그대로 전달합니다.
+- 팔레트 토큰과 시맨틱 토큰 모두 검증할 수 있습니다.
+- 디자인 토큰 QA나 문서 예제에서 사용합니다.
+
+### Don’t
+
+- 제품 화면의 실제 컬러 선택 UI처럼 사용하지 않습니다.
+- 런타임 문자열 조합으로 Tailwind 배경 클래스를 만드는 용도로 확장하지 않습니다.
+
+---
+
+## Playground
+
+하단의 Controls에서 `variable` 값을 바꾸면 스와치 색상이 즉시 변경됩니다.
+
+<Canvas of={Stories.Playground} />
+<Controls of={Stories.Playground} />
+
+---
+
+## Gallery
+
+미리 정의된 대표 색상 스와치를 한 번에 확인할 수 있습니다.
+
+<Canvas of={Stories.All} />
+
+---
+
+## Props
+
+### `variable`
+
+- 타입: `string`
+- 예시: `colors-red-500`, `colors-blue-300`, `accent-default`
+
+컴포넌트는 이 값을 `var(--${variable})` 형태로 해석해 배경색에 적용합니다.
+
+---
+
+## 코드 예시
+
+### 기본 사용
+
+<Source code={`<Color variable="colors-red-500" />`} />
+
+### 시맨틱 토큰 사용
+
+<Source code={`<Color variable="accent-default" />`} />
+
+---
+
+## 구현 메모
+
+- `Color`는 동적 Tailwind 클래스 대신 CSS 변수 직접 참조 방식을 사용합니다.
+- 따라서 Storybook Controls에서 문자열을 실시간으로 바꿔도 별도 safelist 없이 즉시 반영됩니다.
