@@ -1,6 +1,77 @@
 import { Meta, StoryObj } from '@storybook/react-vite'
 import Color from './Color'
 
+const primitiveColorOptions = ([
+  { name: 'Neutral', vars: ['black', 'white'] as const },
+  {
+    name: 'Gray',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Red',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Orange',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Yellow',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Green',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Teal',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Blue',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Indigo',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Purple',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+  {
+    name: 'Pink',
+    vars: [100, 200, 300, 400, 500, 600, 700, 800, 900] as const,
+  },
+] as const).flatMap((color) =>
+  color.vars.map((v) => {
+    return `colors${color.name === 'Neutral' ? '' : '-' + color.name.toLowerCase()}-${v}`
+  }),
+)
+
+const semanticColorGroups = [
+  {
+    name: 'Foreground',
+    vars: ['fg-default', 'fg-muted', 'fg-subtle'] as const,
+  },
+  {
+    name: 'Background',
+    vars: ['bg-default', 'bg-muted', 'bg-subtle'] as const,
+  },
+  {
+    name: 'Accent',
+    vars: ['accent-default', 'accent-on-accent', 'accent-bg'] as const,
+  },
+  {
+    name: 'Component',
+    vars: [
+      'button-primary-background',
+      'button-primary-text',
+      'card-background',
+    ] as const,
+  },
+] as const
+
 const colorPalettes = [
   { name: 'Neutral', vars: ['black', 'white'] as const },
   {
@@ -76,9 +147,31 @@ const ColorAll = () => {
   )
 }
 
-export const All: ColorStory = {
-  name: 'Semantic Colors',
+const SemanticColorAll = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      {semanticColorGroups.map((group) => (
+        <div key={group.name} className="flex flex-col gap-4">
+          <h2>{group.name}</h2>
+          <div className="flex flex-wrap gap-4">
+            {group.vars.map((variable) => (
+              <Color key={variable} variable={variable} />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+export const Primitive: ColorStory = {
+  name: 'Primitive Colors',
   render: () => <ColorAll />,
+}
+
+export const Semantic: ColorStory = {
+  name: 'Semantic Colors',
+  render: () => <SemanticColorAll />,
 }
 
 export const Playground: ColorStory = {
@@ -88,12 +181,10 @@ export const Playground: ColorStory = {
   argTypes: {
     variable: {
       control: 'select',
-      options: colorPalettes.flatMap((color) =>
-        color.vars.map(
-          (v) =>
-            `colors${color.name === 'Neutral' ? '' : '-' + color.name.toLowerCase()}-${v}`,
-        ),
-      ),
+      options: [
+        ...primitiveColorOptions,
+        ...semanticColorGroups.flatMap((group) => group.vars),
+      ],
     },
   },
 }
