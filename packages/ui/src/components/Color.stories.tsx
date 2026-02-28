@@ -87,7 +87,13 @@ export const Playground: ColorStory = {
   },
   argTypes: {
     variable: {
-      control: 'text',
+      control: 'select',
+      options: colorPalettes.flatMap((color) =>
+        color.vars.map(
+          (v) =>
+            `colors${color.name === 'Neutral' ? '' : '-' + color.name.toLowerCase()}-${v}`,
+        ),
+      ),
     },
   },
 }
