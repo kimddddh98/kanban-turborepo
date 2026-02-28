@@ -17,7 +17,7 @@ Color는 전달받은 디자인 토큰 변수명을 기준으로 **하나의 컬
 ### Do
 
 - `variable`에는 CSS 변수 suffix를 그대로 전달합니다.
-- 팔레트 토큰과 시맨틱 토큰 모두 검증할 수 있습니다.
+- Primitive 토큰과 Semantic 토큰 모두 검증할 수 있습니다.
 - 디자인 토큰 QA나 문서 예제에서 사용합니다.
 
 ### Don’t
@@ -38,9 +38,15 @@ Color는 전달받은 디자인 토큰 변수명을 기준으로 **하나의 컬
 
 ## Gallery
 
-미리 정의된 대표 색상 스와치를 한 번에 확인할 수 있습니다.
+미리 정의된 대표 Primitive 색상 스와치를 한 번에 확인할 수 있습니다.
 
-<Canvas of={Stories.All} />
+<Canvas of={Stories.Primitive} />
+
+### Semantic Colors
+
+역할 기반으로 정의된 Semantic 색상 스와치도 함께 확인할 수 있습니다.
+
+<Canvas of={Stories.Semantic} />
 
 ---
 
@@ -49,9 +55,16 @@ Color는 전달받은 디자인 토큰 변수명을 기준으로 **하나의 컬
 ### `variable`
 
 - 타입: `string`
-- 예시: `colors-red-500`, `colors-blue-300`, `accent-default`
+- Primitive 예시: `colors-red-500`, `colors-blue-300`
+- Semantic 예시: `accent-default`, `fg-default`, `bg-muted`
 
 컴포넌트는 이 값을 `var(--${variable})` 형태로 해석해 배경색에 적용합니다.
+
+### 토큰 분류
+
+- `colors-red-500` 형태는 Primitive color token입니다.
+- `accent-default`, `fg-default`, `bg-muted` 형태는 Semantic color token입니다.
+- Semantic 토큰은 보통 Primitive 토큰을 조합하거나 역할 기반으로 재정의한 값입니다.
 
 ---
 
@@ -61,9 +74,13 @@ Color는 전달받은 디자인 토큰 변수명을 기준으로 **하나의 컬
 
 <Source code={`<Color variable="colors-red-500" />`} />
 
+위 예시는 Primitive color token을 직접 확인하는 경우입니다.
+
 ### 시맨틱 토큰 사용
 
 <Source code={`<Color variable="accent-default" />`} />
+
+위 예시는 Semantic color token을 확인하는 경우입니다.
 
 ---
 

@@ -1,0 +1,93 @@
+name: Chromatic
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'packages/ui/**'
+      - 'packages/design-tokens/**'
+
+jobs:
+  chromatic:
+    name: Publish UI Storybook to Chromatic
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build design tokens
+        run: pnpm --filter @repo/design-tokens build
+
+      - name: Run Chromatic
+        id: chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: packages/ui
+          exitOnceUploaded: true
+          exitZeroOnChanges: true
+
+      - name: Update PR comment with Chromatic links
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v8
+        env:
+          BUILD_URL: ${{ steps.chromatic.outputs.buildUrl }}
+          STORYBOOK_URL: ${{ steps.chromatic.outputs.storybookUrl }}
+        with:
+          script: |
+            const marker = '<!-- chromatic-comment -->';
+            const body = [
+              marker,
+              '## Chromatic',
+              '',
+              `- Build: ${process.env.BUILD_URL}`,
+              `- Storybook: ${process.env.STORYBOOK_URL}`,
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const existing = comments.find((comment) => {
+              return comment.user?.type === 'Bot' && comment.body?.includes(marker);
+            });
+
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+              return;
+            }
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body,
+            });
