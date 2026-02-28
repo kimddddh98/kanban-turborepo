@@ -1,7 +1,7 @@
 name: Chromatic
 
 on:
-  pull_request:
+  push:
     branches:
       - main
     paths:
@@ -47,6 +47,7 @@ jobs:
           workingDir: packages/ui
           exitOnceUploaded: true
           exitZeroOnChanges: true
+          onlyChanged: true
 
       - name: Update PR comment with Chromatic links
         if: github.event_name == 'pull_request'

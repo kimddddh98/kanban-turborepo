@@ -1,0 +1,95 @@
+import { Meta, Canvas, Controls, Source } from '@storybook/addon-docs/blocks'
+import * as Stories from '../components/Button.stories'
+
+<Meta of={Stories} />
+
+# Button
+
+## 목적
+
+Button은 사용자 액션을 실행하는 가장 기본적인 인터랙션 컴포넌트입니다.  
+현재 `@repo/design-tokens`에서 제공하는 버튼 토큰을 기반으로 배경색, 텍스트색, radius, spacing, focus 상태를 일관되게 적용합니다.
+
+---
+
+## 사용 가이드
+
+### Do
+
+- 명확한 사용자 액션이 있을 때 Button을 사용합니다.
+- 버튼 텍스트는 동사 중심으로 짧고 분명하게 작성합니다.
+- 스타일 변경은 하드코딩보다 디자인 토큰 기반 확장을 우선합니다.
+
+### Don’t
+
+- 단순 링크 이동을 버튼으로 표현하지 않습니다.
+- `className`으로 색상과 radius를 임의로 덮어써 토큰 일관성을 깨지 않습니다.
+
+---
+
+## Playground
+
+아래 캔버스에서 기본 Button 렌더링과 Controls를 확인할 수 있습니다.
+
+<Canvas of={Stories.Default} />
+<Controls of={Stories.Default} />
+
+---
+
+## 예제(Examples)
+
+### Default
+
+기본 버튼 렌더링입니다.
+
+<Canvas of={Stories.Default} />
+
+### React Hook Example
+
+상태 변경 로직과 함께 사용하는 예제입니다.
+
+<Canvas of={Stories.Primary} />
+
+---
+
+## 접근성(Accessibility)
+
+- Button은 네이티브 `button` 요소를 사용합니다.
+- `type="button"`을 명시해 폼 내부에서 의도치 않은 submit 동작을 방지합니다.
+- 키보드 포커스 시 ring이 표시되도록 설계되어 있습니다.
+
+---
+
+## 토큰/테마(Design Tokens)
+
+현재 Button은 아래 토큰 클래스를 사용합니다.
+
+- 배경: `bg-button-primary`
+- 텍스트: `text-button-primary-text`
+- radius: `rounded-button`
+- spacing: `px-md`, `py-sm`
+- font: `font-body`, `text-base`
+- focus ring: `focus:ring-accent-default`
+
+따라서 테마 변경은 클래스명을 바꾸는 방식보다 **토큰 값 변경**으로 반영하는 것이 기본 원칙입니다.
+
+---
+
+## 코드 예시
+
+### 기본 사용
+
+<Source code={`<Button text="저장" onClick={() => {}} />`} />
+
+### 상태와 함께 사용
+
+<Source
+  code={`const [value, setValue] = useState('변경 전')\n\n<Button text={value} onClick={() => setValue('변경 후')} />`}
+/>
+
+---
+
+## 메모
+
+- 현재 Button은 variant 시스템 없이 primary 스타일 하나를 기본값으로 사용합니다.
+- 향후 secondary, destructive, ghost 같은 variant가 필요해지면 토큰 기반 확장 구조로 분리하는 것이 맞습니다.
