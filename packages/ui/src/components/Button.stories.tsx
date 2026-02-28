@@ -7,7 +7,7 @@ const meta = {
   component: Button,
   // 디폴트 args
   args: {
-    text: '기본 텍스트',
+    text: '버튼입니다',
     onClick: () => alert('버튼 클릭'),
   },
 } satisfies Meta<typeof Button>
@@ -24,15 +24,8 @@ const ButtonWithHooks = () => {
   return <Button onClick={handleOnChange} text={value} />
 }
 
-export const Default: Story = {
-  name: '기본 버튼',
-}
-export const Secondary: Story = {
-  name: '두번째 버튼',
-  args: {
-    text: '두번째 버튼',
-  },
-}
+export const Default: Story = {}
+
 export const Primary = {
   name: '리액트 훅과 같이 쓰는 버튼',
   render: () => <ButtonWithHooks />,
