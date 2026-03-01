@@ -1,6 +1,13 @@
-import { Button, Input } from '@repo/ui'
+import { Button, Checkbox, Input } from '@repo/ui'
+import { useState } from 'react'
 
 function App() {
+  const [checked, setChecked] = useState(false)
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked)
+  }
+
   return (
     <>
       <h1 className="p-test-md bg-gray-900">Vite + React</h1>
@@ -16,6 +23,13 @@ function App() {
       <p className="read-the-docs">cloudfront 도메인,인증서 등록 테스트</p>
       <Input label="테스트 lg 라벨" inputSize="lg" />
       <Input label="테스트 sm 라벨" inputSize="sm" />
+      <Checkbox
+        // checked
+        checked={checked}
+        onChange={handleCheckboxChange}
+        label="테스트 체크박스"
+        description="테스트 체크박스 설명"
+      />
     </>
   )
 }
