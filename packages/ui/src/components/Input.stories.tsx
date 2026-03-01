@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 import { Input } from './Input'
 
-const meta: Meta<typeof Input> = {
+const meta = {
   component: Input,
   args: {
     label: 'Label',
@@ -16,7 +16,7 @@ const meta: Meta<typeof Input> = {
     inputSize: { control: 'select', options: ['sm', 'md', 'lg'] },
     error: { control: 'text' },
   },
-}
+} satisfies Meta<typeof Input>
 
 export default meta
 type Story = StoryObj<typeof Input>
