@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# `@repo/s3-test`
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + Vite 기반 웹 앱입니다.
 
-Currently, two official plugins are available:
+## 기술 스택
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| 구분 | 기술 |
+| --- | --- |
+| Framework | `React 19` |
+| Build Tool | `Vite 7` |
+| Language | `TypeScript` |
+| Routing | `react-router-dom` |
+| Styling | `Tailwind CSS v4` |
+| Test | `Vitest` |
+| UI Package | `@repo/ui` |
+| Design Tokens | `@repo/design-tokens` |
 
-## React Compiler
+## 주요 폴더 구조
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+apps/s3-test
+├── public/
+├── src/
+│   ├── features/
+│   ├── pages/
+│   └── shared/
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## `src` 구조
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src
+├── features/
+│   └── kanban/
+├── pages/
+│   ├── board/
+│   └── page.tsx
+└── shared/
+    ├── consts/
+    ├── layouts/
+    ├── styles/
+    └── test/
 ```
+
+## 디렉터리 역할
+
+- `features`: 도메인별 기능 단위를 둡니다.
+- `pages`: 라우트 경로 기준 페이지를 둡니다.
+- `shared`: 전역 공용 리소스를 둡니다.
+- `public`: 정적 파일을 둡니다.
+
+## 실행 명령어
+
+루트에서 실행합니다.
+
+```bash
+pnpm --filter @repo/s3-test dev
+pnpm --filter @repo/s3-test build
+pnpm --filter @repo/s3-test test
+```
+
+기본 개발 서버 포트는 `5050`입니다.
