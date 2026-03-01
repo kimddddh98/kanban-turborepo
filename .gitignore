@@ -42,9 +42,10 @@ storybook-static
 # --- Storybook logs --- 
 debug-storybook.log
 **/debug-storybook.log
+**/build-storybook.log
+build-storybook.log
 
 
 # --- pnpm --- 
 .pnpm-store
 **/.pnpm-store
-
