@@ -35,11 +35,3 @@ jobs:
 
       - name: Build web
         run: pnpm turbo run build --filter=@repo/s3-test
-
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: s3-test-dist
-          path: apps/s3-test/dist
-          if-no-files-found: error
-          retention-days: 7
