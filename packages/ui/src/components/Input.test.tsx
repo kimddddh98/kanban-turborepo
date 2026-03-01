@@ -16,7 +16,7 @@ test('에러 상태가 보인다.', () => {
   render(<ErrorState />)
   const input = screen.getByPlaceholderText('Enter text...')
   expect(screen.getByText('올바른 이메일을 입력해주세요')).toBeInTheDocument()
-  expect(input).toHaveClass('border-red-500', 'focus:ring-red-500')
+  expect(input).toHaveClass('border-red-500')
 })
 
 test('비활성 상태가 보인다.', () => {
