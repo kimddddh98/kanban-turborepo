@@ -9,10 +9,10 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, inputSize = 'md', className = '', ...props }, ref) => {
     const baseClasses =
-      'w-full rounded-lg border bg-background text-foreground ' +
-      'placeholder:text-muted-foreground ' +
-      'focus:outline-none focus:ring-2 focus:ring-primary ' +
-      'disabled:opacity-50 disabled:cursor-not-allowed'
+      'w-full rounded-lg border border-gray-400 bg-white font-body text-fg-default ' +
+      'placeholder:text-fg-subtle shadow-sm ' +
+      'focus:border-accent-default focus:outline-none ' +
+      'disabled:cursor-not-allowed disabled:opacity-50'
 
     const sizeClasses =
       inputSize === 'sm'
@@ -22,8 +22,8 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
           : 'h-10 px-3 text-base'
 
     const stateClasses = error
-      ? 'border-red-500 focus:ring-red-500'
-      : 'border-border'
+      ? 'border-red-500 focus:border-red-500'
+      : 'hover:border-gray-300'
 
     const inputClasses = [baseClasses, sizeClasses, stateClasses, className]
       .filter(Boolean)
@@ -32,7 +32,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className="flex w-full flex-col gap-1">
         {label && (
-          <label className="text-foreground text-sm font-medium">{label}</label>
+          <label className="font-body text-fg-muted text-sm font-medium">
+            {label}
+          </label>
         )}
 
         <input ref={ref} className={inputClasses} {...props} />
