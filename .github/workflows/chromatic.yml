@@ -62,9 +62,28 @@ jobs:
               commit_sha: context.sha,
             });
 
-            const pr = prs.find((item) => item.state === 'open');
+            let pr = prs.find((item) => item.state === 'open');
             if (!pr) {
-              core.info('No open pull request is associated with this commit.');
+              pr = prs.find((item) => item.merged_at) ?? prs[0];
+            }
+
+            if (!pr) {
+              const branchName = context.ref.replace('refs/heads/', '');
+              const { data: branchPrs } = await github.rest.pulls.list({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: 'all',
+                head: `${context.repo.owner}:${branchName}`,
+              });
+
+              pr = branchPrs.find((item) => item.state === 'open');
+              if (!pr) {
+                pr = branchPrs.find((item) => item.merged_at) ?? branchPrs[0];
+              }
+            }
+
+            if (!pr) {
+              core.info('No pull request is associated with this commit or branch.');
               return;
             }
 
@@ -73,6 +92,7 @@ jobs:
               marker,
               '## Chromatic',
               '',
+              `- PR: #${pr.number}`,
               `- Build: ${process.env.BUILD_URL}`,
               `- Storybook: ${process.env.STORYBOOK_URL}`,
             ].join('\n');
