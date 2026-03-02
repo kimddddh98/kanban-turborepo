@@ -13,6 +13,9 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.28.2",
+  "dependencies": {
+    "dayjs": "^1.11.18"
+  },
   "devDependencies": {
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"

@@ -19,7 +19,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.28.2",
   "dependencies": {
-    "@repo/design-tokens": "workspace:*"
+    "@repo/design-tokens": "workspace:*",
+    "@repo/utils": "workspace:*"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.0",
