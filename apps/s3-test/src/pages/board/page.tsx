@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { ROUTES } from '../../shared/consts/routes'
-import { KanbanCard } from '@repo/ui'
+import { AddCardButton, KanbanCard } from '@repo/ui'
 
 const columns = [
   {
@@ -203,13 +203,10 @@ export function BoardPage() {
                       meta={task.meta}
                     />
                   ))}
-
-                  <button
-                    className="mt-auto rounded-[22px] border border-dashed border-slate-300 px-4 py-4 text-left text-sm font-medium text-slate-500 transition hover:border-slate-400 hover:bg-slate-50"
-                    type="button"
-                  >
-                    + 새 카드를 추가할 자리
-                  </button>
+                  <AddCardButton
+                    onClick={() => alert('새 카드를 추가할 자리')}
+                    label="+ 새 카드를 추가할 자리"
+                  />
                 </div>
               </section>
             ))}
