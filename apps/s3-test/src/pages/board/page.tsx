@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 
 import { ROUTES } from '../../shared/consts/routes'
+import { KanbanCard } from '@repo/ui'
 
 const columns = [
   {
@@ -74,7 +75,7 @@ const columns = [
 
 export function BoardPage() {
   return (
-    <main className="min-h-screen bg-[linear-gradient(180deg,_#f8fafc_0%,_#eef2ff_45%,_#e2e8f0_100%)]">
+    <main className="min-h-screen bg-[linear-gradient(180deg,#f8fafc_0%,#eef2ff_45%,#e2e8f0_100%)]">
       <div className="mx-auto flex min-h-screen max-w-[1600px] flex-col gap-8 px-4 py-6 pb-0 sm:px-6 lg:px-8">
         <header className="overflow-hidden rounded-[32px] border border-white/60 bg-slate-950 text-white shadow-[0_30px_80px_rgba(15,23,42,0.24)]">
           <div className="grid gap-8 px-6 py-8 md:px-8 lg:grid-cols-[1.6fr_0.9fr]">
@@ -148,7 +149,7 @@ export function BoardPage() {
                     <span>65%</span>
                   </div>
                   <div className="h-2 rounded-full bg-white/10">
-                    <div className="h-2 w-[65%] rounded-full bg-gradient-to-r from-sky-400 to-cyan-300" />
+                    <div className="bg-linear-to-r h-2 w-[65%] rounded-full from-sky-400 to-cyan-300" />
                   </div>
                 </div>
               </div>
@@ -195,25 +196,12 @@ export function BoardPage() {
 
                 <div className="mt-4 flex flex-1 flex-col gap-4">
                   {column.tasks.map((task) => (
-                    <article
+                    <KanbanCard
                       key={task.title}
-                      className="rounded-[24px] border border-slate-200 bg-white p-4 shadow-[0_12px_30px_rgba(15,23,42,0.06)] transition hover:-translate-y-0.5"
-                    >
-                      <div className="flex items-center justify-between gap-3">
-                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-slate-600">
-                          {task.meta}
-                        </span>
-                        <span className="text-xs font-medium text-slate-400">
-                          Today
-                        </span>
-                      </div>
-                      <h4 className="mt-4 text-base font-semibold leading-6 text-slate-950">
-                        {task.title}
-                      </h4>
-                      <p className="mt-2 text-sm leading-6 text-slate-600">
-                        {task.summary}
-                      </p>
-                    </article>
+                      title={task.title}
+                      summary={task.summary}
+                      meta={task.meta}
+                    />
                   ))}
 
                   <button
