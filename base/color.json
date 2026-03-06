@@ -5,6 +5,10 @@
       "background": {
         "value": "#ffffff",
         "type": "color"
+      },
+      "backgroudn-dark": {
+        "value": "#000000",
+        "type": "color"
       }
     }
   }
