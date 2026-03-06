@@ -9,6 +9,10 @@
       "backgroudn-dark": {
         "value": "#000000",
         "type": "color"
+      },
+      "asdasd": {
+        "value": "#ff0000",
+        "type": "color"
       }
     }
   }
