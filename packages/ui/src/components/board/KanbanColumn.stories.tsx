@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { AddCardButton } from './AddCardButton'
+import { EmptyColumnState } from './EmptyColumnState'
 import { KanbanCard } from './KanbanCard'
 import { KanbanColumn } from './KanbanColumn'
 
@@ -33,9 +34,7 @@ export const Empty: Story = {
   render: (args) => (
     <div className="w-[320px]">
       <KanbanColumn {...args} count={0}>
-        <div className="rounded-[22px] border border-dashed border-slate-300 px-4 py-10 text-center text-sm text-slate-400">
-          아직 카드가 없습니다.
-        </div>
+        <EmptyColumnState />
         <AddCardButton label="+ 새 카드 추가" onClick={() => {}} />
       </KanbanColumn>
     </div>
