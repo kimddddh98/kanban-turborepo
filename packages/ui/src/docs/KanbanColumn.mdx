@@ -1,0 +1,83 @@
+import { Meta, Canvas, Controls, Source } from '@storybook/addon-docs/blocks'
+import * as ColumnStories from '../components/board/KanbanColumn.stories'
+import * as CardStories from '../components/board/KanbanCard.stories'
+import * as AddCardButtonStories from '../components/board/AddCardButton.stories'
+import * as EmptyStateStories from '../components/board/EmptyColumnState.stories'
+
+<Meta of={ColumnStories} />
+
+# Kanban Column
+
+## 목적
+
+`KanbanColumn`은 칸반 보드의 컬럼 레이아웃(헤더/카운트/본문 영역)을 담당하는 컴포넌트입니다.  
+카드 리스트, 빈 상태, 추가 버튼은 `children`으로 주입해 조합합니다.
+
+---
+
+## 구성 관계
+
+- 컬럼 레이아웃: `KanbanColumn`
+- 카드 아이템: `KanbanCard`
+- 카드 추가 액션: `AddCardButton`
+- 빈 상태 표시: `EmptyColumnState`
+
+---
+
+## KanbanColumn Playground
+
+<Canvas of={ColumnStories.WithCards} />
+<Controls of={ColumnStories.WithCards} />
+
+---
+
+## 조합(Composition) 예시
+
+### 1) 카드가 있는 컬럼
+
+<Canvas of={ColumnStories.WithCards} />
+
+### 2) 빈 컬럼
+
+<Canvas of={ColumnStories.Empty} />
+
+---
+
+## 하위 컴포넌트 참조
+
+### KanbanCard
+
+<Canvas of={CardStories.Playground} />
+
+### AddCardButton
+
+<Canvas of={AddCardButtonStories.Playground} />
+
+### EmptyColumnState
+
+<Canvas of={EmptyStateStories.Default} />
+
+---
+
+## 사용 예시
+
+<Source
+  code={`<KanbanColumn
+  title="Backlog"
+  description="정리 전 아이디어와 요청"
+  accent="bg-slate-500"
+  count={2}
+>
+  <KanbanCard
+    title="프로젝트 온보딩 화면 초안"
+    summary="첫 진입 사용자를 위한 소개 레이아웃 정리"
+    meta="Design"
+  />
+  <KanbanCard
+    title="보드 필터 정책 정리"
+    summary="우선순위와 담당자 기준 필터 방식 정의"
+    meta="Planning"
+  />
+  <AddCardButton label="+ 새 카드 추가" onClick={() => {}} />
+</KanbanColumn>`}
+/>
