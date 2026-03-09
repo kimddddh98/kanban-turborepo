@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
+import { AddCardButton, KanbanCard, KanbanColumn } from '@repo/ui'
 
 import { ROUTES } from '../../shared/consts/routes'
-import { AddCardButton, KanbanCard } from '@repo/ui'
 
 const columns = [
   {
@@ -171,44 +171,26 @@ export function BoardPage() {
         <section className="-mx-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
           <div className="grid min-w-[1100px] grid-cols-4 gap-5">
             {columns.map((column) => (
-              <section
+              <KanbanColumn
                 key={column.id}
-                className="flex min-h-[640px] flex-col rounded-[28px] border border-slate-200/70 bg-white/80 p-4 shadow-[0_20px_50px_rgba(15,23,42,0.08)] backdrop-blur-sm"
+                title={column.title}
+                description={column.description}
+                accent={column.accent}
+                count={column.tasks.length}
               >
-                <div className="flex items-start justify-between gap-3 rounded-2xl bg-slate-50 px-4 py-4">
-                  <div>
-                    <div className="flex items-center gap-3">
-                      <span
-                        className={`h-3 w-3 rounded-full ${column.accent}`}
-                      />
-                      <h3 className="text-lg font-semibold text-slate-950">
-                        {column.title}
-                      </h3>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-slate-500">
-                      {column.description}
-                    </p>
-                  </div>
-                  <span className="rounded-full bg-white px-3 py-1 text-sm font-semibold text-slate-700 shadow-sm">
-                    {column.tasks.length}
-                  </span>
-                </div>
-
-                <div className="mt-4 flex flex-1 flex-col gap-4">
-                  {column.tasks.map((task) => (
-                    <KanbanCard
-                      key={task.title}
-                      title={task.title}
-                      summary={task.summary}
-                      meta={task.meta}
-                    />
-                  ))}
-                  <AddCardButton
-                    onClick={() => alert('새 카드를 추가할 자리')}
-                    label="+ 새 카드를 추가할 자리"
+                {column.tasks.map((task) => (
+                  <KanbanCard
+                    key={task.title}
+                    title={task.title}
+                    summary={task.summary}
+                    meta={task.meta}
                   />
-                </div>
-              </section>
+                ))}
+                <AddCardButton
+                  onClick={() => alert('새 카드를 추가할 자리')}
+                  label="+ 새 카드를 추가할 자리"
+                />
+              </KanbanColumn>
             ))}
           </div>
         </section>
