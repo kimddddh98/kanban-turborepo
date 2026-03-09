@@ -1,5 +1,10 @@
 import { Link } from 'react-router-dom'
-import { AddCardButton, KanbanCard, KanbanColumn } from '@repo/ui'
+import {
+  AddCardButton,
+  EmptyColumnState,
+  KanbanCard,
+  KanbanColumn,
+} from '@repo/ui'
 
 import { ROUTES } from '../../shared/consts/routes'
 
@@ -45,13 +50,7 @@ const columns = [
     title: 'Review',
     description: '확인 또는 피드백 대기',
     accent: 'bg-sky-500',
-    tasks: [
-      {
-        title: 'README 구조 문서 검토',
-        summary: '폴더 구조 문서화 내용 점검',
-        meta: 'Docs',
-      },
-    ],
+    tasks: [],
   },
   {
     id: 'done',
@@ -178,17 +177,21 @@ export function BoardPage() {
                 accent={column.accent}
                 count={column.tasks.length}
               >
-                {column.tasks.map((task) => (
-                  <KanbanCard
-                    key={task.title}
-                    title={task.title}
-                    summary={task.summary}
-                    meta={task.meta}
-                  />
-                ))}
+                {column.tasks.length > 0 ? (
+                  column.tasks.map((task) => (
+                    <KanbanCard
+                      key={task.title}
+                      title={task.title}
+                      summary={task.summary}
+                      meta={task.meta}
+                    />
+                  ))
+                ) : (
+                  <EmptyColumnState />
+                )}
                 <AddCardButton
                   onClick={() => alert('새 카드를 추가할 자리')}
-                  label="+ 새 카드를 추가할 자리"
+                  label="+ 카드 추가하기"
                 />
               </KanbanColumn>
             ))}
