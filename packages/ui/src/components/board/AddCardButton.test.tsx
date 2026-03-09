@@ -62,3 +62,15 @@ test('disabled 상태일 때 비활성 스타일과 disabled 속성이 적용된
     'opacity-70',
   )
 })
+
+test('icon prop을 전달하면 아이콘이 버튼 안에 렌더링된다.', () => {
+  render(
+    <AddCardButton
+      label="+ 새 카드"
+      onClick={() => {}}
+      icon={<span data-testid="add-card-icon">+</span>}
+    />,
+  )
+
+  expect(screen.getByTestId('add-card-icon')).toBeInTheDocument()
+})

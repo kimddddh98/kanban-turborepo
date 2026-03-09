@@ -1,11 +1,15 @@
+import type { ReactNode } from 'react'
+
 interface AddCardButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void
   label: string
+  icon?: ReactNode
 }
 
 const AddCardButton = ({
   onClick,
   label,
+  icon,
   className,
   type = 'button',
   disabled,
@@ -27,7 +31,10 @@ const AddCardButton = ({
       onClick={onClick}
       type={type}
     >
-      {label}
+      <span className="inline-flex items-center gap-2">
+        {icon}
+        <span>{label}</span>
+      </span>
     </button>
   )
 }
